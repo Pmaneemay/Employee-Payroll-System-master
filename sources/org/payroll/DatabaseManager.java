@@ -112,10 +112,10 @@ public class DatabaseManager {
 		}
 	}
 	
-	public Boolean existsPosition(String dep_name) {
+	public Boolean existsPosition(String pos_name) {
 		try {
 			return curs.executeQuery(
-					"SELECT * FROM position WHERE dep_name=\"" + dep_name + "\""
+					"SELECT * FROM position WHERE pos_name=\"" + pos_name + "\""
 				).next();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
