@@ -54,7 +54,7 @@ public class DatabaseManager {
 						"first_name STRING NOT NULL," +
 						"last_name STRING NOT NULL," +
 						"email STRING NOT NULL," +
-						"department STRING NOT NULL" +
+						"position STRING NOT NULL" +
 					")"
 				);
 		} catch (SQLException e) {
@@ -123,30 +123,15 @@ public class DatabaseManager {
 		return false;
 	}
 	
-	public void newDepartment(String dep_name, int basic_salary, int da_percent, int hra_percent, int pf_percent) {
-		int da = (da_percent / 100) * basic_salary;
-		int hra = (hra_percent / 100) * basic_salary;
-		int pf = (pf_percent / 100) * basic_salary;
-		int gross_salary = basic_salary + da + hra + pf;
-		int epf = pf / 2;
-		int lic = epf / 2;
-		int deductions = epf + lic;
-		int net_salary = gross_salary - deductions;
+	public void newPosition(String pos_name, int hourly_rate, int overtime_rate) {
 		
 		try {
 			curs.executeUpdate(
 					"INSERT INTO departments VALUES(" +
 							"null," +
-							"\"" + dep_name + "\" ," +
-							Integer.toString(basic_salary) + "," +
-							Integer.toString(da) + "," +
-							Integer.toString(hra) + "," +
-							Integer.toString(pf) + "," +
-							Integer.toString(gross_salary) + "," +
-							Integer.toString(epf) + "," +
-							Integer.toString(lic) + "," +
-							Integer.toString(deductions) + "," +
-							Integer.toString(net_salary) +
+							"\"" + pos_name + "\" ," +
+							Integer.toString(hourly_rate) + "," +
+							Integer.toString(overtime_rate) +
 					")"
 				);
 		} catch (SQLException e) {
@@ -154,32 +139,32 @@ public class DatabaseManager {
 		}
 	}
 	
-	public void deleteDepartment(String dep_name) {
+	public void deletePosition(String pos_name) {
 		try {
 			curs.executeUpdate(
-					"DELETE FROM departments WHERE dep_name=\"" + dep_name + "\""
+					"DELETE FROM position WHERE dep_name=\"" + pos_name + "\""
 				);
 			curs.executeUpdate(
-					"DELETE FROM employees WHERE department=\"" + dep_name + "\""
+					"DELETE FROM employees WHERE department=\"" + pos_name + "\""
 				);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void updateDepartment(String dep_name, int basic_salary, int da, int hra, int pf) {
-		deleteDepartment(dep_name);
-		newDepartment(dep_name, basic_salary, da, hra, pf);
+	public void updatePosition(String pos_name, int hourly_rate, int overtime_rate) {
+		deletePosition(pos_name);
+		newPosition(pos_name, hourly_rate, overtime_rate);
 	}
 	
-	public ArrayList<String> getListOfDepartments() {
+	public ArrayList<String> getListOfPositions() {
 		ArrayList<String> lst = new ArrayList<String>();
 		
 		try {
-			ResultSet rs = curs.executeQuery("SELECT dep_name FROM departments");
+			ResultSet rs = curs.executeQuery("SELECT pos_name FROM Position");
 			
 			while (rs.next()) {
-				lst.add(rs.getString("dep_name"));
+				lst.add(rs.getString("pos_name"));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -211,14 +196,14 @@ public class DatabaseManager {
 		return false;
 	}
 	
-	public void createEmployee(String fn, String ln, String email, String department) {
+	public void createEmployee(String fn, String ln, String email, String position) {
 		try {
 			curs.executeUpdate("INSERT INTO employees VALUES(" +
 					"null," +
 					"\"" + fn + "\"," +
 					"\"" + ln + "\"," + 
 					"\"" + email + "\"," +
-					"\"" + department + "\"" +
+					"\"" + position + "\"" +
 				")");
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -235,14 +220,14 @@ public class DatabaseManager {
 		}
 	}
 	
-	public void updateEmployee(int id, String fn, String ln, String email, String department) {
+	public void updateEmployee(int id, String fn, String ln, String email, String position) {
 		try {
 			curs.executeUpdate(
 					"UPDATE employees SET " +
 					"first_name=\"" + fn + "\"," +
 					"last_name=\"" + ln + "\"," +
 					"email=\"" + email + "\"," +
-					"department=\"" + department + "\" " +
+					"position=\"" + position + "\" " +
 					"WHERE id=" + Integer.toString(id)
 				);
 		} catch (SQLException e) {
