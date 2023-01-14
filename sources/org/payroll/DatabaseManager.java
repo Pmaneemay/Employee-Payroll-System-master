@@ -41,18 +41,11 @@ public class DatabaseManager {
 					"INSERT INTO login_ids VALUES(null, \"admin\", \"password\")"
 				);
 			curs.executeUpdate(
-					"CREATE TABLE departments(" +
+					"CREATE TABLE Position(" +
 							"id INTEGER NOT NULL PRIMARY KEY," +
-							"dep_name STRING NOT NULL," +
-							"basic_salary INTEGER NOT NULL," +
-							"da INTEGER NOT NULL," +
-							"hra INTEGER NOT NULL," +
-							"pf INTEGER NOT NULL," +
-							"gross_salary INTEGER NOT NULL," +
-							"epf INTEGER NOT NULL," +
-							"lic INTEGER NOT NULL," +
-							"deductions INTEGER NOT NULL," +
-							"net_salary INTEGER NOT NULL" +
+							"pos_name STRING NOT NULL," +
+							"hourly_rate INTEGER NOT NULL," +
+							"overtime_rate INTEGER NOT NULL," +
 					")"
 				);
 			curs.executeUpdate(
@@ -119,10 +112,10 @@ public class DatabaseManager {
 		}
 	}
 	
-	public Boolean existsDepartment(String dep_name) {
+	public Boolean existsPosition(String dep_name) {
 		try {
 			return curs.executeQuery(
-					"SELECT * FROM departments WHERE dep_name=\"" + dep_name + "\""
+					"SELECT * FROM position WHERE dep_name=\"" + dep_name + "\""
 				).next();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
