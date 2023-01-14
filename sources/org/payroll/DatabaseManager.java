@@ -133,7 +133,7 @@ public class DatabaseManager {
 	public Boolean existsPosition(String pos_name) {
 		try {
 			return curs.executeQuery(
-					"SELECT * FROM position WHERE pos_name=\"" + pos_name + "\""
+					"SELECT * FROM Position WHERE pos_name=\"" + pos_name + "\""
 				).next();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -145,7 +145,7 @@ public class DatabaseManager {
 		
 		try {
 			curs.executeUpdate(
-					"INSERT INTO departments VALUES(" +
+					"INSERT INTO Position VALUES(" +
 							"null," +
 							"\"" + pos_name + "\" ," +
 							Integer.toString(hourly_rate) + "," +
@@ -160,7 +160,7 @@ public class DatabaseManager {
 	public void deletePosition(String pos_name) {
 		try {
 			curs.executeUpdate(
-					"DELETE FROM position WHERE dep_name=\"" + pos_name + "\""
+					"DELETE FROM Position WHERE dep_name=\"" + pos_name + "\""
 				);
 			curs.executeUpdate(
 					"DELETE FROM employees WHERE department=\"" + pos_name + "\""
