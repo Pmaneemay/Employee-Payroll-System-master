@@ -67,6 +67,14 @@ public class DatabaseManager {
 							"total_time INTEGER NOT NULL" +
 							")"
 			);
+			curs.executeUpdate(
+					"CREATE TABLE emp_salary(" +
+							"salary_id INTEGER NOT NULL PRIMARY KEY," +
+							"date_salary DATE NOT NULL," +
+							"emp_id INTEGER NOT NULL," +
+							"salary_per_day INTEGER NOT NULL," +
+							")"
+			);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
