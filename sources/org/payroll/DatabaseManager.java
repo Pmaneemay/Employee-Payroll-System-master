@@ -57,6 +57,16 @@ public class DatabaseManager {
 						"department STRING NOT NULL" +
 					")"
 				);
+			curs.executeUpdate(
+					"CREATE TABLE attendance(" +
+							"attendance_id INTEGER NOT NULL PRIMARY KEY," +
+							"emp_id INTEGER NOT NULL," +
+							"attendance_date DATE NOT NULL," +
+							"check_in_time TIME NOT NULL," +
+							"check_out_time TIME NOT NULL" +
+							"total_time INTEGER NOT NULL" +
+							")"
+			);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
