@@ -58,13 +58,19 @@ public class DatabaseManager {
 					")"
 				);
 			curs.executeUpdate(
-					"CREATE TABLE attendance(" +
-							"attendance_id INTEGER NOT NULL PRIMARY KEY," +
+					"CREATE TABLE clock_in(" +
+							"clock_in_id INTEGER NOT NULL PRIMARY KEY," +
 							"emp_id INTEGER NOT NULL," +
 							"attendance_date DATE NOT NULL," +
-							"check_in_time TIME NOT NULL," +
-							"check_out_time TIME NOT NULL" +
-							"total_time INTEGER NOT NULL" +
+							"clock_in_time TIME NOT NULL," +
+							")"
+			);
+			curs.executeUpdate(
+					"CREATE TABLE clock_out(" +
+							"clock_out_id INTEGER NOT NULL PRIMARY KEY," +
+							"emp_id INTEGER NOT NULL," +
+							"attendance_date DATE NOT NULL," +
+							"clock_out_time TIME NOT NULL," +
 							")"
 			);
 			curs.executeUpdate(
@@ -73,6 +79,7 @@ public class DatabaseManager {
 							"date_salary DATE NOT NULL," +
 							"emp_id INTEGER NOT NULL," +
 							"salary_per_day INTEGER NOT NULL," +
+							"total_time INTEGER NOT NULL" +
 							")"
 			);
 		} catch (SQLException e) {
