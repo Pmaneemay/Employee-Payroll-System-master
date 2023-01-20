@@ -1,6 +1,5 @@
 package org.payroll.ProfileManager;
 
-import org.payroll.EmployeeDetail.EmpoyeeDetailFrame;
 import org.payroll.Manager.DashboardFrame;
 
 import javax.swing.*;

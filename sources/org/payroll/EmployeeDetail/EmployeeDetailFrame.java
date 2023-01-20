@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EmpoyeeDetailFrame extends JFrame{
+public class EmployeeDetailFrame extends JFrame{
     private JPanel EmployeeDetailPanel;
     private JButton JBtnReload;
     private JLabel JLblTitle;
@@ -16,7 +16,7 @@ public class EmpoyeeDetailFrame extends JFrame{
     private JButton JBtnDownload;
     private JButton JBtnBack;
 
-    public EmpoyeeDetailFrame() {
+    public EmployeeDetailFrame() {
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
         setContentPane(RootPanel);
@@ -30,7 +30,7 @@ public class EmpoyeeDetailFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                (new EmpoyeeDetailFrame()).setVisible(true);
+                (new EmployeeDetailFrame()).setVisible(true);
                 dispose();
             }
         });

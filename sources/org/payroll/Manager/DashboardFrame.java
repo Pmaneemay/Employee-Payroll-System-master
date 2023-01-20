@@ -1,7 +1,7 @@
 package org.payroll.Manager;
 
 import org.payroll.EmployeeAttendance.EmployeeAttendanceFrame;
-import org.payroll.EmployeeDetail.EmpoyeeDetailFrame;
+import org.payroll.EmployeeDetail.EmployeeDetailFrame;
 import org.payroll.EmployeeManagement.EmployeeManagementFrame;
 import org.payroll.EmployeeSalary.EmployeeSalaryFrame;
 import org.payroll.Position.PositionFrame;
@@ -48,7 +48,7 @@ public class DashboardFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                (new EmpoyeeDetailFrame()).setVisible(true);
+                (new EmployeeDetailFrame()).setVisible(true);
             }
         });
 
