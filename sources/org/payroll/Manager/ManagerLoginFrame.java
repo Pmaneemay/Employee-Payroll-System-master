@@ -1,5 +1,7 @@
 package org.payroll.Manager;
 
+import org.payroll.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,12 +31,8 @@ public class ManagerLoginFrame extends JFrame {
         JBtnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = JTFldUsername.getText();
-                String Password = JPFldPassword.getText();
-                if (Objects.equals(id, "CHUSNUL") && Objects.equals(Password, "1234")){
+                if (Main.dbManager.verifyLoginId(JTFldUsername.getText(), new String(JPFldPassword.getPassword()))){
                     LoginSuccessful();
-                    dispose();
-                    (new DashboardFrame()).setVisible(true);
                 }
                 else{
                     LoginFailed();
@@ -57,6 +55,10 @@ public class ManagerLoginFrame extends JFrame {
                 "Login Successful",
                 JOptionPane.INFORMATION_MESSAGE
         );
+
+        setVisible(false);
+        (new DashboardFrame()).setVisible(true);
+        dispose();
     }
 
     void LoginFailed() {

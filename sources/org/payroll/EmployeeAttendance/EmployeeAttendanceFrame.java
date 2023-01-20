@@ -1,15 +1,18 @@
 package org.payroll.EmployeeAttendance;
 
 import com.toedter.calendar.JDateChooser;
+import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class EmployeeAttendanceFrame extends JFrame{
     private JSplitPane EmployeeAttendancePanel;
@@ -27,7 +30,9 @@ public class EmployeeAttendanceFrame extends JFrame{
     Calendar cal = Calendar.getInstance();
     JDateChooser dateChooser = new JDateChooser();
 
-    public EmployeeAttendanceFrame() {
+    Object[][] data;
+
+    public EmployeeAttendanceFrame(Object[][] Newdata) {
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
         setContentPane(EmployeeAttendancePanel);
@@ -36,6 +41,14 @@ public class EmployeeAttendanceFrame extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(true);
         setVisible(true);
+
+        data = Newdata;
+        String col[] ={"ID","Employee ID","Employee Full Name","Date","Clock In Time","Clock Out Time"};
+        DefaultTableModel model = new DefaultTableModel(data, col);
+
+        JTblEmpAttend = new JTable(model);
+        JSPnlEmpAtten = new JScrollPane(JTblEmpAttend);
+        JTblEmpAttend.setVisible(true);
 
         dateChooser.setDateFormatString("dd/MM/yyyy");
         JPnlDate.add(dateChooser);
@@ -46,7 +59,8 @@ public class EmployeeAttendanceFrame extends JFrame{
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date dat = dateChooser.getDate();
                 String dat1 = sdf.format(dat);
-                JLblDateTry.setText(dat1);
+//                JLblDateTry.setText(dat1);
+                Object[][] Attendance_data = Main.dbManager.getAttendance(dat1);
             }
         });
 

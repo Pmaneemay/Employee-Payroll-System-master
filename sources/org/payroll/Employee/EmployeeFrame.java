@@ -52,8 +52,8 @@ public class EmployeeFrame extends JFrame implements Runnable {
         JBtnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = JTFIdEmp.getText();
-                if (Objects.equals(id, "1")){
+//                String id = JTFIdEmp.getText();
+                if (Main.dbManager.existsEmployeeID(JTFIdEmp.getText())){
                     LoginSuccessful();
                     JBtnClockIn.setVisible(true);
                     JBtnClockOut.setVisible(true);
@@ -69,16 +69,29 @@ public class EmployeeFrame extends JFrame implements Runnable {
         JBtnClockIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Clock_In_Successful();
-                dispose();
+                if (!(Main.dbManager.VerifyClockin(JTFIdEmp.getText()))){
+                    Main.dbManager.PunchIn(JTFIdEmp.getText());
+                    Clock_In_Successful();
+                }
+                else {
+                    Clock_In_Failed();
+                }
             }
         });
 
         JBtnClockOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Clock_Out_Successful();
-                dispose();
+                if (!(Main.dbManager.VerifyClockin(JTFIdEmp.getText()))){
+                    if (!(Main.dbManager.VerifyClockOut(JTFIdEmp.getText()))) {
+                        Main.dbManager.PunchOut(JTFIdEmp.getText());
+                        Main.dbManager.InsertEmployeeSalaryFromAttandance(JTFIdEmp.getText());
+                        Clock_Out_Successful();
+                    }
+                }
+                else {
+                    Clock_Out_Failed();
+                }
             }
         });
 
@@ -88,13 +101,6 @@ public class EmployeeFrame extends JFrame implements Runnable {
                 setVisible(false);
                 (new UserTypeFrame()).setVisible(true);
                 dispose();
-            }
-        });
-        JTFIdEmp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String IdEmp = JTFIdEmp.getText();
-                Main.dbManager.existsEmployeeID(IdEmp);
             }
         });
     }
@@ -154,11 +160,30 @@ public class EmployeeFrame extends JFrame implements Runnable {
                 JOptionPane.INFORMATION_MESSAGE
         );
     }
+
     void Clock_Out_Successful() {
         JOptionPane.showMessageDialog(
                 null,
                 "Clock-Out Successful",
                 "Clock-Out Successful",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+
+    void Clock_In_Failed() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Clock-In Failed\nYou already Clock-In for today",
+                "Clock-In Failed",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+
+    void Clock_Out_Failed() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Clock-Out Failed\nYou already Clock-Out for today",
+                "Clock-Out Failed",
                 JOptionPane.INFORMATION_MESSAGE
         );
     }

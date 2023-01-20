@@ -4,6 +4,7 @@ import org.payroll.EmployeeAttendance.EmployeeAttendanceFrame;
 import org.payroll.EmployeeDetail.EmployeeDetailFrame;
 import org.payroll.EmployeeManagement.EmployeeManagementFrame;
 import org.payroll.EmployeeSalary.EmployeeSalaryFrame;
+import org.payroll.Main;
 import org.payroll.Position.PositionFrame;
 import org.payroll.ProfileManager.MenuProfileFrame;
 
@@ -63,8 +64,9 @@ public class DashboardFrame extends JFrame{
         JBtnEmpAttendance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Object[][] data = Main.dbManager.getAllAttendance();
                 dispose();
-                (new EmployeeAttendanceFrame()).setVisible(true);
+                (new EmployeeAttendanceFrame(data)).setVisible(true);
             }
         });
 

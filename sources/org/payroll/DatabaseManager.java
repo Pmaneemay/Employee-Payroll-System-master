@@ -1,11 +1,16 @@
 package org.payroll;
 
+import com.toedter.calendar.JDateChooser;
+
+import javax.swing.*;
 import java.io.File;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class DatabaseManager {
 
@@ -42,7 +47,7 @@ public class DatabaseManager {
                     "CREATE TABLE login_ids(id INTEGER NOT NULL PRIMARY KEY, username STRING NOT NULL, password STRING NOT NULL)"
             );
             curs.executeUpdate(
-                    "INSERT INTO login_ids VALUES(null, \"admin\", \"password\")"
+                    "INSERT INTO login_ids VALUES(null, \"admin\", \"1\")"
             );
             curs.executeUpdate(
                     "CREATE TABLE Position(" +
@@ -60,6 +65,12 @@ public class DatabaseManager {
                             "email STRING NOT NULL," +
                             "pos_name STRING NOT NULL)"
 
+            );
+            curs.executeUpdate(
+                    "INSERT INTO employees VALUES(1234, \"Chusnul\", \"Mariyah\", \"mchusnul@gmail.com\", \"Programmer\")"
+            );
+            curs.executeUpdate(
+                    "INSERT INTO employees VALUES(12, \"Muhamad\", \"Ashraf\", \"mAshraf@gmail.com\", \"Engineer\")"
             );
             curs.executeUpdate(
                     "CREATE TABLE Attendance(" +
@@ -138,9 +149,10 @@ public class DatabaseManager {
     public Boolean VerifyClockin(String empID) {
         try {
             return curs.executeQuery(
-                    "SELECT  clock_in_time FROM Attendance WHERE ( emp_id =\"" + empID + "\""
-                            + "AND (attendance_date = CURRENT_DATE) "
+                    "SELECT  clock_in_time FROM Attendance WHERE ( emp_id =\"" + empID + "\")"
+                            + "AND ( attendance_date = CURRENT_DATE ) AND ( clock_in_time is not null ) "
             ).next();
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -157,7 +169,6 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-
         return false;
     }
 
