@@ -55,8 +55,9 @@ public class EmployeeAttendanceFrame extends JFrame{
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date dat = dateChooser.getDate();
                 String dat1 = sdf.format(dat);
-//                JLblDateTry.setText(dat1);
+                JLblDateTry.setText(dat1);
                 Object[][] Attendance_data = Main.dbManager.getAttendance(dat1);
+                JTblEmpAttend.setModel(new DefaultTableModel(Attendance_data, col));
             }
         });
 
