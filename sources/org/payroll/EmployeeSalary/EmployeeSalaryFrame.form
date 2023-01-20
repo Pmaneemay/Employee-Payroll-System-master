@@ -29,7 +29,7 @@
               <background color="-2099"/>
               <font name="Baskerville Old Face" size="28" style="1"/>
               <foreground color="-13757016"/>
-              <text value="Employee Attendance"/>
+              <text value="Employee Salary"/>
             </properties>
           </component>
           <component id="311a1" class="javax.swing.JLabel" binding="JTFldMonth">

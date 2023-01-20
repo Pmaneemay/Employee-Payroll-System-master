@@ -30,9 +30,9 @@ public class EmployeeAttendanceFrame extends JFrame{
     Calendar cal = Calendar.getInstance();
     JDateChooser dateChooser = new JDateChooser();
 
-    Object[][] data;
 
-    public EmployeeAttendanceFrame(Object[][] Newdata) {
+
+    public EmployeeAttendanceFrame() {
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
         setContentPane(EmployeeAttendancePanel);

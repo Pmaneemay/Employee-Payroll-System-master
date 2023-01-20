@@ -53,13 +53,26 @@ public class EmployeeFrame extends JFrame implements Runnable {
             public void actionPerformed(ActionEvent e) {
 //                String id = JTFIdEmp.getText();
                 if (Main.dbManager.existsEmployeeID(JTFIdEmp.getText())){
-                    LoginSuccessful();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Login Successful",
+                            "Login Successful",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
                     JBtnClockIn.setVisible(true);
                     JBtnClockOut.setVisible(true);
                     JBtnLogin.setVisible(false);
                 }
                 else{
-                    LoginFailed();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Wrong username or password",
+                            "Login Failed",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+
+                    JTFIdEmp.setText("");
                 }
             }
         });
@@ -70,10 +83,20 @@ public class EmployeeFrame extends JFrame implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 if (!(Main.dbManager.VerifyClockin(JTFIdEmp.getText()))){
                     Main.dbManager.PunchIn(JTFIdEmp.getText());
-                    Clock_In_Successful();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Clock-In Successful",
+                            "Clock-In Successful",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
                 }
                 else {
-                    Clock_In_Failed();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Clock-In Failed\nYou already Clock-In for today",
+                            "Clock-In Failed",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
                 }
             }
         });
@@ -85,11 +108,29 @@ public class EmployeeFrame extends JFrame implements Runnable {
                     if (!(Main.dbManager.VerifyClockOut(JTFIdEmp.getText()))) {
                         Main.dbManager.PunchOut(JTFIdEmp.getText());
                         Main.dbManager.InsertEmployeeSalaryFromAttandance(JTFIdEmp.getText());
-                        Clock_Out_Successful();
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Clock-Out Successful",
+                                "Clock-Out Successful",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Clock-Out Failed\nYou already Clock-Out for today",
+                                "Clock-Out Failed",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
                     }
                 }
                 else {
-                    Clock_Out_Failed();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Clock-Out Failed\nYou have not yet Clock-In for today",
+                            "Clock-Out Failed",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
                 }
             }
         });
@@ -129,61 +170,5 @@ public class EmployeeFrame extends JFrame implements Runnable {
 
                 JLblDate.setText(strdate);
             }
-    }
-
-    void LoginSuccessful() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Login Successful",
-                "Login Successful",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-
-    void LoginFailed() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Wrong username or password",
-                "Login Failed",
-                JOptionPane.ERROR_MESSAGE
-        );
-
-        JTFIdEmp.setText("");
-    }
-
-    void Clock_In_Successful() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Clock-In Successful",
-                "Clock-In Successful",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-
-    void Clock_Out_Successful() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Clock-Out Successful",
-                "Clock-Out Successful",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-
-    void Clock_In_Failed() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Clock-In Failed\nYou already Clock-In for today",
-                "Clock-In Failed",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-
-    void Clock_Out_Failed() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Clock-Out Failed\nYou already Clock-Out for today",
-                "Clock-Out Failed",
-                JOptionPane.INFORMATION_MESSAGE
-        );
     }
 }

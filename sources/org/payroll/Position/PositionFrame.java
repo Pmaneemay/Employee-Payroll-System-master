@@ -23,8 +23,6 @@ public class PositionFrame extends JFrame {
     private JTable JTblListPostion;
     private JScrollPane JSPnlPosition;
 
-    Object[][] ndata = Main.dbManager.getPositions();
-
     public PositionFrame() {
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
@@ -36,11 +34,9 @@ public class PositionFrame extends JFrame {
         setVisible(true);
 
         String col[] = {"Employee ID","Employee Position","Hourly Rate","Overtime Rate"};
-        DefaultTableModel model = new DefaultTableModel(ndata, col);
+        Object[][] data = Main.dbManager.getPositions();
 
-
-        JTblListPostion = new JTable(model);
-        JSPnlPosition = new JScrollPane(JTblListPostion);
+        JTblListPostion.setModel(new DefaultTableModel(data,col));
 
         JBtnBack.addActionListener(new ActionListener() {
             @Override

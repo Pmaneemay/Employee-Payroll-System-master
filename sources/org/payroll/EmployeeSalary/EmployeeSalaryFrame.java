@@ -2,9 +2,11 @@ package org.payroll.EmployeeSalary;
 
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
+import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +44,10 @@ public class EmployeeSalaryFrame extends JFrame{
         JPnlYear.add(yearChooser);
         JPnlMonth.add(monthChooser);
 
+        Object[][] data = Main.dbManager.getAllMonthlySalary();
+        String col[] = {"Employee ID","Employee Full Name","Month","Year","Total Salary","Total Hours Worked"};
+
+        JTblReport.setModel(new DefaultTableModel(data,col));
 
         JBtnGet.addActionListener(new ActionListener() {
             @Override
@@ -50,7 +56,9 @@ public class EmployeeSalaryFrame extends JFrame{
                 JLblYear.setText(yr.toString());
                 Integer mnth = monthChooser.getMonth();
                 mnth = mnth + 1;
-                JLblMonth.setText(mnth.toString());
+
+                Object[][] Ndata = Main.dbManager.getSalaryByMonthAndYear(mnth, yr);
+//                JLblMonth.setText(mnth.toString());
             }
         });
 

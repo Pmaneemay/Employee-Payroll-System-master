@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.payroll.Position.DeletePositionFrame">
-  <grid id="27dc6" binding="DeletePositionPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="DeletePositionPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="true" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="20" left="50" bottom="30" right="50"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -16,24 +16,6 @@
           <font name="Baskerville Old Face" size="28" style="1"/>
           <text value="Delete Position"/>
         </properties>
-      </component>
-      <component id="f80a0" class="javax.swing.JLabel" binding="JLblNamePost">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="Bell MT" size="16" style="1"/>
-          <foreground color="-13757016"/>
-          <text value="Position Name"/>
-        </properties>
-      </component>
-      <component id="27bce" class="javax.swing.JTextField" binding="JTFldNamePost">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
       </component>
       <component id="81068" class="javax.swing.JButton" binding="JBtnCancel">
         <constraints>
@@ -55,6 +37,22 @@
           <font name="Bell MT" size="16" style="1"/>
           <foreground color="-1"/>
           <text value="Delete"/>
+        </properties>
+      </component>
+      <component id="7edb2" class="javax.swing.JComboBox" binding="JCBoxPosition">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="f80a0" class="javax.swing.JLabel" binding="JLblNamePost">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Bell MT" size="16" style="1"/>
+          <foreground color="-13757016"/>
+          <text value="Position Name"/>
         </properties>
       </component>
     </children>

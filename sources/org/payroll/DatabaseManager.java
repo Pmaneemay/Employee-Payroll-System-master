@@ -67,12 +67,6 @@ public class DatabaseManager {
 
             );
             curs.executeUpdate(
-                    "INSERT INTO employees VALUES( 1234, \"Chusnul\", \"Mariyah\", \"mchusnul@gmail.com\", \"Programmer\")"
-            );
-            curs.executeUpdate(
-                    "INSERT INTO employees VALUES( 12345, \"Muhamad\", \"Ashraf\", \"mAshraf@gmail.com\", \"Engineer\")"
-            );
-            curs.executeUpdate(
                     "CREATE TABLE Attendance(" +
                             "clock_in_id INTEGER NOT NULL PRIMARY KEY," +
                             "emp_id STRING NOT NULL," +
@@ -95,10 +89,10 @@ public class DatabaseManager {
         }
     }
 
-    public Boolean verifyLoginId(String username) {
+    public Boolean verifyLoginId(String id) {
         try {
             return curs.executeQuery(
-                    "SELECT * FROM login_ids WHERE username=\"" + username + "\""
+                    "SELECT * FROM login_ids WHERE id=\"" + id + "\""
             ).next();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -136,10 +130,19 @@ public class DatabaseManager {
         }
     }
 
-    public void changePassword(String username, String newPassword) {
+    public void changePassword(String Password, String newPassword) {
         try {
             curs.executeUpdate(
-                    "UPDATE login_ids SET password=\"" + newPassword + "\" WHERE username=\"" + username + "\""
+                    "UPDATE login_ids SET password=\"" + newPassword + "\" WHERE password=\"" + Password + "\""
+            );
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    public void changeUsername(String newusername, String Password) {
+        try {
+            curs.executeUpdate(
+                    "UPDATE login_ids SET username=\"" + newusername + "\" WHERE password=\"" + Password + "\""
             );
         } catch (SQLException e) {
             System.err.println(e.getMessage());

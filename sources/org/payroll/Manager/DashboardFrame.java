@@ -64,9 +64,8 @@ public class DashboardFrame extends JFrame{
         JBtnEmpAttendance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Object[][] data = Main.dbManager.getAllAttendance();
                 dispose();
-                (new EmployeeAttendanceFrame(data)).setVisible(true);
+                (new EmployeeAttendanceFrame()).setVisible(true);
             }
         });
 
@@ -94,7 +93,8 @@ public class DashboardFrame extends JFrame{
         JBtnQuit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                (new ManagerLoginFrame()).setVisible(true);
+                dispose();
             }
         });
 
