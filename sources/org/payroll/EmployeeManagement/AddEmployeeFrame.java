@@ -30,7 +30,7 @@ public class AddEmployeeFrame extends JFrame{
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
         setContentPane(AddEmployeePanel);
-        setMinimumSize(new Dimension(550, 500));
+        setMinimumSize(new Dimension(550, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -55,7 +55,7 @@ public class AddEmployeeFrame extends JFrame{
                 id = JTFldEmpID.getText();
                 email = JTFldEmpEmail.getText();
                 Fname = JTFldEmpFirstName.getText();
-                Lname = JTFldLastName.getName();
+                Lname = JTFldLastName.getText();
 
                 Main.dbManager.createEmployee(id, Fname, Lname, email, position);
 

@@ -31,7 +31,7 @@ public class UpdateEmployeeFrame extends JFrame{
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
         setContentPane(UpdateEmployeePanel);
-        setMinimumSize(new Dimension(550, 500));
+        setMinimumSize(new Dimension(550, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);

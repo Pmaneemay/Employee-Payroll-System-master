@@ -19,7 +19,7 @@ public class DeleteEmployeeFrame extends JFrame{
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
         setContentPane(DeleteEmployeePanel);
-        setMinimumSize(new Dimension(450, 400));
+        setMinimumSize(new Dimension(450, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);

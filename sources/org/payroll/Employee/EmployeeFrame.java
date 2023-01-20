@@ -81,7 +81,7 @@ public class EmployeeFrame extends JFrame implements Runnable {
         JBtnClockOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!(Main.dbManager.VerifyClockin(JTFIdEmp.getText()))){
+                if (Main.dbManager.VerifyClockin(JTFIdEmp.getText())){
                     if (!(Main.dbManager.VerifyClockOut(JTFIdEmp.getText()))) {
                         Main.dbManager.PunchOut(JTFIdEmp.getText());
                         Main.dbManager.InsertEmployeeSalaryFromAttandance(JTFIdEmp.getText());
