@@ -1,5 +1,7 @@
 package org.payroll.EmployeeManagement;
 
+import org.payroll.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +28,7 @@ public class DeleteEmployeeFrame extends JFrame{
         JBtnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                (new EmployeeManagementFrame()).setVisible(true);
                 dispose();
             }
         });
@@ -33,13 +36,17 @@ public class DeleteEmployeeFrame extends JFrame{
         JBtnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //call function that will search the id and delete employee
+                String Id = JTFldEmpID.getText();
+
+                Main.dbManager.deleteEmployee(Id);
+
                 JOptionPane.showMessageDialog(
                         null,
                         "Employee Deleted",
                         "Employee Deleted",
                         JOptionPane.INFORMATION_MESSAGE
                 );
+                (new EmployeeManagementFrame()).setVisible(true);
                 dispose();
             }
         });
