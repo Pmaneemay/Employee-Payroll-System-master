@@ -6,7 +6,7 @@
     </constraints>
     <properties>
       <background color="-2099"/>
-      <dividerLocation value="147"/>
+      <dividerLocation value="250"/>
       <orientation value="0"/>
     </properties>
     <border type="none"/>

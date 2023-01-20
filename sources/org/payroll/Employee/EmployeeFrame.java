@@ -1,5 +1,6 @@
 package org.payroll.Employee;
 
+import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
 import org.payroll.UserTypeFrame;
 
@@ -87,6 +88,13 @@ public class EmployeeFrame extends JFrame implements Runnable {
                 setVisible(false);
                 (new UserTypeFrame()).setVisible(true);
                 dispose();
+            }
+        });
+        JTFIdEmp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String IdEmp = JTFIdEmp.getText();
+                Main.dbManager.existsEmployeeID(IdEmp);
             }
         });
     }
