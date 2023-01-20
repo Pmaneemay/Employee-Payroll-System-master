@@ -29,6 +29,7 @@ public class EmployeeManagementFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 (new AddEmployeeFrame()).setVisible(true);
+                dispose();
             }
         });
 
@@ -36,6 +37,7 @@ public class EmployeeManagementFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 (new DeleteEmployeeFrame()).setVisible(true);
+                dispose();
             }
         });
 
@@ -43,6 +45,7 @@ public class EmployeeManagementFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 (new UpdateEmployeeFrame()).setVisible(true);
+                dispose();
             }
         });
 

@@ -1,5 +1,7 @@
 package org.payroll.ProfileManager;
 
+import org.payroll.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ public class ChangeUsernameFrame extends JFrame{
     private JLabel JLblTitle;
     private JPasswordField JPFldPassword;
     private JTextField JTFldNewUsername;
-    private JTextField JTFldOldUsername;
+    private JTextField JTFldConfirmUsername;
     private JLabel JLblPassword;
     private JLabel JLblNewUsername;
     private JLabel JLblConfirmUsername;
@@ -37,13 +39,44 @@ public class ChangeUsernameFrame extends JFrame{
         JBtnChange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Username Changed",
-                        "Username Changed",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                dispose();
+                String Pass = (JPFldPassword.getPassword()).toString();
+                String N_UName = (JTFldNewUsername.getText());
+                String C_UName = (JTFldConfirmUsername.getText());
+
+                if (N_UName == C_UName) {
+                    if (Main.dbManager.verifyLoginId(Pass)) {
+                        Main.dbManager.changeUsername(N_UName, Pass);
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Username Changed",
+                                "Username Changed",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Username Change Failed\nYou enter wrong password",
+                                "Username Change Failed",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        JPFldPassword.setText("");
+                        JTFldNewUsername.setText("");
+                        JTFldConfirmUsername.setText("");
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Username Change Failed\nCannot confirm the new username",
+                            "Cannot confirm the new username",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    JPFldPassword.setText("");
+                    JTFldNewUsername.setText("");
+                    JTFldConfirmUsername.setText("");
+                }
             }
         });
     }

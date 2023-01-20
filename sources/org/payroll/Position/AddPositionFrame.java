@@ -32,8 +32,7 @@ public class AddPositionFrame extends JFrame{
         JBtnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name;
-                name = JTFldNamePost.getText();
+                String name = JTFldNamePost.getText();
                 int h_rate = Integer.parseInt(JTFldHourlyRate.getText());
                 int o_rate = Integer.parseInt(JTFldOvertimeRate.getText());
 

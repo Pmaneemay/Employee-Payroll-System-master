@@ -37,7 +37,6 @@ public class EmployeeDetailFrame extends JFrame{
         JTblEmployeeDetail.setModel(new DefaultTableModel(data,col));
 
 
-
         JBtnReload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

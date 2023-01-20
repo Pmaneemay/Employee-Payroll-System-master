@@ -1,5 +1,7 @@
 package org.payroll.ProfileManager;
 
+import org.payroll.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,13 +39,43 @@ public class ChangePasswordFrame extends JFrame{
         JBtnChange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Password Changed",
-                        "Password Changed",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                dispose();
+                String O_Pass = (JPFldPassword.getPassword()).toString();
+                String N_Pass = (JPFldNewPassword.getPassword()).toString();
+                String C_Pass = (JPFldConfirmPassword.getPassword()).toString();
+
+                if (N_Pass == C_Pass) {
+                    if (Main.dbManager.verifyLoginId(O_Pass)) {
+                        Main.dbManager.changePassword(O_Pass, N_Pass);
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Password Changed",
+                                "Password Changed",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Password Change Failed\nYou enter wrong password",
+                                "Password Change Failed",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        JPFldPassword.setText("");
+                        JPFldNewPassword.setText("");
+                        JPFldConfirmPassword.setText("");
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Password Change Failed\nCannot confirm the new password",
+                            "Cannot confirm the new password",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    JPFldPassword.setText("");
+                    JPFldNewPassword.setText("");
+                    JPFldConfirmPassword.setText("");
+                }
             }
         });
     }

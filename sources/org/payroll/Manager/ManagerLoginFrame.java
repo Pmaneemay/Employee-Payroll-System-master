@@ -1,6 +1,7 @@
 package org.payroll.Manager;
 
 import org.payroll.Main;
+import org.payroll.UserTypeFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,10 +33,27 @@ public class ManagerLoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Main.dbManager.verifyLoginId(JTFldUsername.getText(), new String(JPFldPassword.getPassword()))){
-                    LoginSuccessful();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Login Successful",
+                            "Login Successful",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                    setVisible(false);
+                    (new DashboardFrame()).setVisible(true);
+                    dispose();
                 }
                 else{
-                    LoginFailed();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Wrong username or password",
+                            "Login Failed",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+
+                    JTFldUsername.setText("");
+                    JPFldPassword.setText("");
                 }
             }
         });
@@ -43,33 +61,9 @@ public class ManagerLoginFrame extends JFrame {
         JBtnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                (new UserTypeFrame()).setVisible(true);
                 dispose();
             }
         });
-    }
-
-    void LoginSuccessful() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Login Successful",
-                "Login Successful",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-
-        setVisible(false);
-        (new DashboardFrame()).setVisible(true);
-        dispose();
-    }
-
-    void LoginFailed() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Wrong username or password",
-                "Login Failed",
-                JOptionPane.ERROR_MESSAGE
-        );
-
-        JTFldUsername.setText("");
-        JPFldPassword.setText("");
     }
 }
