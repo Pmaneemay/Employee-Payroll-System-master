@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.payroll.ProfileManager.MenuProfileFrame">
+  <grid id="27dc6" binding="MenuProfilePanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="20" left="50" bottom="30" right="50"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-2099"/>
+    </properties>
+    <border type="line"/>
+    <children>
+      <component id="88068" class="javax.swing.JLabel" binding="JLblTitle">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-2099"/>
+          <font name="Baskerville Old Face" size="24" style="1"/>
+          <foreground color="-13757016"/>
+          <text value="Profile"/>
+        </properties>
+      </component>
+      <component id="a190c" class="javax.swing.JButton" binding="JBtnChangeUsername">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-2099"/>
+          <font name="Bell MT" size="26" style="1"/>
+          <foreground color="-13757016"/>
+          <horizontalTextPosition value="0"/>
+          <icon value="org/payroll/SourcePicture/change.png"/>
+          <text value="Change username"/>
+          <verticalTextPosition value="3"/>
+        </properties>
+      </component>
+      <component id="5ec16" class="javax.swing.JButton" binding="JBtnChangePassword">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-2099"/>
+          <font name="Bell MT" size="26" style="1"/>
+          <foreground color="-13757016"/>
+          <horizontalTextPosition value="0"/>
+          <icon value="org/payroll/SourcePicture/password.png"/>
+          <text value="Change Password"/>
+          <verticalTextPosition value="3"/>
+        </properties>
+      </component>
+      <component id="5e625" class="javax.swing.JButton" binding="JBtnBack">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="4"/>
+          <icon value="org/payroll/SourcePicture/back.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

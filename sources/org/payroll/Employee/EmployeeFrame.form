@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.payroll.Employee.EmployeeFrame">
+  <grid id="27dc6" binding="EmployeePanel" layout-manager="GridLayoutManager" row-count="10" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="60" left="50" bottom="40" right="50"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="410"/>
+    </constraints>
+    <properties>
+      <background color="-2099"/>
+    </properties>
+    <border type="line">
+      <color color="-13004170"/>
+    </border>
+    <children>
+      <component id="9d851" class="javax.swing.JTextField" binding="JTFIdEmp">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="d78b9" class="javax.swing.JLabel" binding="JLblDate">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Baskerville Old Face" size="28" style="1"/>
+          <foreground color="-14478224"/>
+          <text value="c"/>
+        </properties>
+      </component>
+      <component id="9e36a" class="javax.swing.JLabel" binding="JLblClock">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Baskerville Old Face" size="28" style="1"/>
+          <foreground color="-14478224"/>
+          <icon value="org/payroll/SourcePicture/hourglass.png"/>
+          <text value="c"/>
+        </properties>
+      </component>
+      <component id="17d62" class="javax.swing.JButton" binding="JBtnClockIn">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14478224"/>
+          <foreground color="-1"/>
+          <text value="CLOCK-IN"/>
+        </properties>
+      </component>
+      <vspacer id="ec51c">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="25ccc">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="7627e" class="javax.swing.JLabel" binding="JLblTitle">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Berlin Sans FB" size="16" style="0"/>
+          <foreground color="-14478224"/>
+          <text value="Employee ID"/>
+        </properties>
+      </component>
+      <vspacer id="6f87f">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="d8086">
+        <constraints>
+          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="8d8df" class="javax.swing.JButton" binding="JBtnBack">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-2099"/>
+          <horizontalAlignment value="4"/>
+          <icon value="org/payroll/SourcePicture/back.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="58141" class="javax.swing.JButton" binding="JBtnClockOut">
+        <constraints>
+          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14478224"/>
+          <foreground color="-1"/>
+          <text value="CLOCK-OUT"/>
+        </properties>
+      </component>
+      <component id="d0419" class="javax.swing.JButton" binding="JBtnLogin">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14478224"/>
+          <foreground color="-1"/>
+          <text value="LOG IN"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
