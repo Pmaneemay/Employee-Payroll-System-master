@@ -522,9 +522,9 @@ public class DatabaseManager {
                         rs.getInt("clock_in_id"),
                         rs.getString("emp_id"),
                         getEmployeeName(rs.getString("emp_id")),
-                        rs.getDate("attendance_date"),
-                        rs.getTime("clock_in_time"),
-                        rs.getTime("clock_out_time")
+                        rs.getString("attendance_date"),
+                        rs.getString("clock_in_time"),
+                        rs.getString("clock_out_time")
                 };
                 Attendance.add(temp);
             }

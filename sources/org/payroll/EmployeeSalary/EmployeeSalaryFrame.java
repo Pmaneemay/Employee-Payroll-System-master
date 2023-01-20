@@ -56,9 +56,10 @@ public class EmployeeSalaryFrame extends JFrame{
                 JLblYear.setText(yr.toString());
                 Integer mnth = monthChooser.getMonth();
                 mnth = mnth + 1;
+                JLblMonth.setText(mnth.toString());
 
                 Object[][] Ndata = Main.dbManager.getSalaryByMonthAndYear(mnth, yr);
-//                JLblMonth.setText(mnth.toString());
+                JTblReport.setModel(new DefaultTableModel(Ndata,col));
             }
         });
 
