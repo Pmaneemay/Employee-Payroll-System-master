@@ -167,10 +167,10 @@ public class DatabaseManager {
 	public void deletePosition(String pos_name) {
 		try {
 			curs.executeUpdate(
-					"DELETE FROM Position WHERE dep_name=\"" + pos_name + "\""
+					"DELETE FROM Position WHERE pos_name=\"" + pos_name + "\""
 				);
 			curs.executeUpdate(
-					"DELETE FROM employees WHERE department=\"" + pos_name + "\""
+					"DELETE FROM employees WHERE position=\"" + pos_name + "\""
 				);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());

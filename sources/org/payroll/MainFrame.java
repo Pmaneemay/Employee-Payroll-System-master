@@ -6,13 +6,14 @@ import javax.swing.*;
 import org.payroll.preferences.*;
 import org.payroll.departments.*;
 import org.payroll.employees.*;
+import org.payroll.*;
 
 public class MainFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
 	String username;
-	
+
 	Object[] columns = {
 			"ID",
 			"First Name",
