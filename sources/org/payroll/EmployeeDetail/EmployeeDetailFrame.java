@@ -1,8 +1,10 @@
 package org.payroll.EmployeeDetail;
 
+import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,9 @@ public class EmployeeDetailFrame extends JFrame{
     private JSplitPane RootPanel;
     private JButton JBtnDownload;
     private JButton JBtnBack;
+    private JScrollPane JSPnlEmpDetail;
+
+
 
     public EmployeeDetailFrame() {
         super();
@@ -25,6 +30,13 @@ public class EmployeeDetailFrame extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+
+        Object[][] data = Main.dbManager.getEmployees();
+        String col[] = {"Employee ID", "First Name", "Last Name", "Email Address", "Position"};
+
+        JTblEmployeeDetail.setModel(new DefaultTableModel(data,col));
+
+
 
         JBtnReload.addActionListener(new ActionListener() {
             @Override

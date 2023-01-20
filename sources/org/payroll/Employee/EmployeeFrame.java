@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
-import static java.lang.Thread.sleep;
 
 
 public class EmployeeFrame extends JFrame implements Runnable {

@@ -42,13 +42,9 @@ public class EmployeeAttendanceFrame extends JFrame{
         setResizable(true);
         setVisible(true);
 
-        data = Newdata;
+        Object[][] attendance = Main.dbManager.getAllAttendance();
         String col[] ={"ID","Employee ID","Employee Full Name","Date","Clock In Time","Clock Out Time"};
-        DefaultTableModel model = new DefaultTableModel(data, col);
-
-        JTblEmpAttend = new JTable(model);
-        JSPnlEmpAtten = new JScrollPane(JTblEmpAttend);
-        JTblEmpAttend.setVisible(true);
+        JTblEmpAttend.setModel(new DefaultTableModel(attendance, col));
 
         dateChooser.setDateFormatString("dd/MM/yyyy");
         JPnlDate.add(dateChooser);

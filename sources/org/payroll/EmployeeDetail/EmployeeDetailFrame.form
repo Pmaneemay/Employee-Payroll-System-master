@@ -75,7 +75,7 @@
           </component>
         </children>
       </grid>
-      <scrollpane id="7d26d">
+      <scrollpane id="7d26d" binding="JSPnlEmpDetail">
         <constraints>
           <splitpane position="right"/>
         </constraints>

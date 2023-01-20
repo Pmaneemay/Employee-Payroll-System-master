@@ -1,9 +1,13 @@
 package org.payroll.EmployeeManagement;
 
+import org.payroll.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class AddEmployeeFrame extends JFrame{
     private JPanel AddEmployeePanel;
@@ -19,6 +23,8 @@ public class AddEmployeeFrame extends JFrame{
     private JLabel JLblEmpEmail;
     private JLabel JLblEmpPosition;
 
+    ArrayList<String> positions = Main.dbManager.getListOfPositionName();
+
     public AddEmployeeFrame() {
         super();
         setTitle("EMPLOYEE PAYROLL SYSTEM");
@@ -28,6 +34,9 @@ public class AddEmployeeFrame extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+
+//        JCBoxPosition = new JComboBox<String>(positions.toArray(new String[positions.size()]));
+        JCBoxPosition.setModel(new DefaultComboBoxModel(positions.toArray(new String[positions.size()])));
 
         JBtnCancel.addActionListener(new ActionListener() {
             @Override
@@ -39,7 +48,7 @@ public class AddEmployeeFrame extends JFrame{
         JBtnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //call function to retrieve data from the frame and put it in the database
+                String id, name, email;
                 JOptionPane.showMessageDialog(
                         null,
                         "New Employee Added",

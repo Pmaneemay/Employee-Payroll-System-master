@@ -1,5 +1,7 @@
 package org.payroll.Position;
 
+import org.payroll.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +34,10 @@ public class DeletePositionFrame extends JFrame{
         JBtnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String name = JTFldNamePost.getText();
+
+                Main.dbManager.deletePosition(name);
+
                 JOptionPane.showMessageDialog(
                         null,
                         "Position Deleted",
