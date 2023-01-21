@@ -13,7 +13,7 @@ public class Main {
 		// If "the path to database file" is empty, a temporary in-memory database is opened.
 
 		(new UserTypeFrame()).setVisible(true);
-		//Main.dbManager.InsertEmployeeSalaryFromAttandance("A0002");
+
 
 	}
 }
