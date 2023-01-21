@@ -84,8 +84,8 @@ public class DatabaseManager {
                             "date_salary DATE NOT NULL," +
                             "emp_id STRING NOT NULL," +
                             "emp_name STRING NOT NULL," +
-                            "salary_per_day INTEGER NOT NULL," +
-                            "total_time INTEGER NOT NULL)"
+                            "salary_per_day DOUBLE  NOT NULL," +
+                            "total_time DOUBLE NOT NULL)"
             );
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -206,11 +206,11 @@ public class DatabaseManager {
 
     }
 
-    public void InsertEmpSalary(String Date , String Emp_id , String Emp_Fullname , int totalPay , int totalHour ){
+    public void InsertEmpSalary(String Date , String Emp_id , String Emp_Fullname , double totalPay , double totalHour ){
         try{
             curs.executeUpdate("INSERT INTO emp_salary ( date_salary , emp_id , emp_name , salary_per_day , total_time )" +
-                    " VALUES (" + "\"" + Date + "\"," + "\"" + Emp_id + "\"," + "\"" + Emp_Fullname + "\"," + Integer.toString(totalPay)
-                    + "," + Integer.toString(totalHour) + ")");
+                    " VALUES (" + "\"" + Date + "\"," + "\"" + Emp_id + "\"," + "\"" + Emp_Fullname + "\"," + Double.toString(totalPay)
+                    + "," + Double.toString(totalHour) + ")");
         }catch (SQLException e){
             System.err.println(e.getMessage());
         }
@@ -218,7 +218,7 @@ public class DatabaseManager {
 
     public void InsertEmployeeSalaryFromAttandance(String empid) {
         String Date, Emp_id , emp_fullname , positionName;
-        int hourly_rate, OT_rate, total_hour, start_minute, end_minute, TotalPay;
+        double hourly_rate, OT_rate, total_hour, start_minute, end_minute, TotalPay;
 
         try {
             ResultSet rs = curs.executeQuery(
@@ -248,8 +248,8 @@ public class DatabaseManager {
         }
     }
 
-    public int getTotalHours (String EmID ){
-        int totalHour;
+    public double getTotalHours (String EmID ){
+        double totalHour;
         ResultSet rs;
         try{
              rs = curs.executeQuery(
@@ -257,7 +257,7 @@ public class DatabaseManager {
                            "WHERE emp_id=\"" + EmID + "\" AND attendance_date = CURRENT_DATE"
             );
              if (rs.next())
-             { return totalHour = rs.getInt("hours");}
+             { return totalHour = rs.getDouble("hours");}
         }catch (SQLException e){
             System.err.println(e.getMessage());
         }
@@ -509,20 +509,20 @@ public class DatabaseManager {
         ArrayList<Object[]> Attendance = new ArrayList<Object[]>();
         ResultSet rs;
         int id;
-        String empID , emPName , CIT , COT ;
-        Date dt;
+        String empID , emPName , CIT , COT , dt ;
+
 
 
         try{
             rs = curs.executeQuery("SELECT clock_in_id,emp_id,strftime('%H : %M : %S',clock_in_time) AS clockIn," +
-                    "strftime('%H : %M : %S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance WHERE attendance_date = " + date + " ");
+                    "strftime('%H : %M : %S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance WHERE attendance_date = \"" + date + "\"");
 
             while(rs.next()){
                         id = rs.getInt("clock_in_id");
                         empID = rs.getString("emp_id");
                         CIT = rs.getString("clockIn");
                         COT = rs.getString("clockOut");
-                        dt = rs.getDate("dates");
+                        dt = rs.getString("dates");
                         emPName = getEmployeeName(empID);
 
                 Object [] temp = {id, empID, emPName, dt, CIT, COT};
@@ -541,23 +541,25 @@ public class DatabaseManager {
         ArrayList<Object[]> Attendance = new ArrayList<Object[]>();
         ResultSet rs;
         int id;
-        String empID , emPName , CIT , COT;
-        Date dt;
+        String empID , emPName , dt , CIT , COT;
+
 
 
         try{
-            rs = curs.executeQuery("SELECT clock_in_id,emp_id,clock_in_time," +
-                    "clock_out_time,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance WHERE clock_out_time IS NOT NULL ");
+            rs = curs.executeQuery("SELECT clock_in_id,emp_id,strftime('%H:%M:%S',clock_in_time) AS clockIn," +
+                    "strftime('%H:%M:%S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance WHERE clock_out_time IS NOT NULL ");
 
             while(rs.next()){
                 id = rs.getInt("clock_in_id");
                 empID = rs.getString("emp_id");
-                dt = rs.getDate("dates");
-                CIT = new SimpleDateFormat(" HH:mm:ss").parse(rs.getDate("clock_in_time"));
-                COT = new SimpleDateFormat(" HH:mm:ss").parse(rs.getDate("clock_out_time"));
+                CIT = rs.getString("clockIn");
+                COT = rs.getString("clockOut");
+                dt = rs.getString("dates");
+
                 emPName = getEmployeeName(empID);
 
-                Object [] temp = {id, empID, emPName, dt, CIT, COT};
+
+                Object[] temp = {id, empID, emPName, dt, CIT, COT};
 
                 Attendance.add(temp);
             }
@@ -571,13 +573,14 @@ public class DatabaseManager {
     public Object[][] getAllMonthlySalary(){
         ArrayList<Object[]> Salary = new ArrayList<Object[]>();
         String EmID , EmFN ;
-        int m ,  y , TP ,  TH;
+        int m ,  y ;
+        double TP ,  TH;
 
         try{
             ResultSet rs = curs.executeQuery
                     (
                             "SELECT  emp_id, emp_name, SUM(salary_per_day) AS Tot_sal ,SUM(total_time) AS Tot_time,strftime('%Y',date_salary) AS sal_year," +
-                                    "strftime('%M',date_salary) AS sal_month FROM emp_salary " +
+                                    "strftime('%m',date_salary) AS sal_month FROM emp_salary " +
                                     "GROUP BY emp_id , sal_year ,sal_month " +
                                     "ORDER BY sal_month, sal_year DESC  "
                     );
@@ -590,8 +593,8 @@ public class DatabaseManager {
                         rs.getString("emp_name"),
                         rs.getInt("sal_month"),
                         rs.getInt("sal_year"),
-                        rs.getInt("Tot_sal"),
-                        rs.getInt("Tot_time")
+                        rs.getDouble("Tot_sal"),
+                        rs.getDouble("Tot_time")
 
                 };
 
@@ -608,7 +611,8 @@ public class DatabaseManager {
     public Object[][] getSalaryByMonthAndYear(int month , int year){
         ArrayList<Object[]> Salary = new ArrayList<Object[]>();
         String EmID , EmFN ;
-        int m ,  y , TP ,  TH;
+        int m ,  y;
+        double TP ,  TH;
 
 
         try{
@@ -616,7 +620,7 @@ public class DatabaseManager {
             ResultSet rs = curs.executeQuery
                     (
                             "SELECT  emp_id, emp_name, SUM(salary_per_day) AS tot_salary ,SUM(total_time) AS tot_time , strftime('%Y',date_salary) AS sal_year, " +
-                                    "strftime('%M',date_salary) AS sal_month  FROM emp_salary " +
+                                    "strftime('%m',date_salary) AS sal_month  FROM emp_salary " +
                                     "WHERE ( ( sal_month = " + Integer.toString(month) + ")" + "AND " + "(sal_year = " + Integer.toString(year) + "))" +
                                     "GROUP BY ( emp_id , sal_year ,sal_month ) "
                     );
@@ -628,8 +632,8 @@ public class DatabaseManager {
                         rs.getString("emp_name"),
                         rs.getInt("sal_month"),
                         rs.getInt("sal_year"),
-                        rs.getInt("Tot_salary"),
-                        rs.getInt("Tot_time")
+                        rs.getDouble("Tot_salary"),
+                        rs.getDouble("Tot_time")
 
                 };
 
@@ -642,7 +646,6 @@ public class DatabaseManager {
         return Salary.toArray(new Object[Salary.size()][]);
 
     }
-
 
 
 }
