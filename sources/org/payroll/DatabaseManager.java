@@ -264,16 +264,16 @@ public class DatabaseManager {
         return 0;
     }
 
-    public Boolean existsPosition(String pos_name) {
-        try {
-            return curs.executeQuery(
-                    "SELECT * FROM Position WHERE pos_name=\"" + pos_name + "\""
-            ).next();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
+//    public Boolean existsPosition(String pos_name) {
+//        try {
+//            return curs.executeQuery(
+//                    "SELECT * FROM Position WHERE pos_name=\"" + pos_name + "\""
+//            ).next();
+//        } catch (SQLException e) {
+//            System.err.println(e.getMessage());
+//        }
+//        return false;
+//    }
 
     public void newPosition(String pos_name, int hourly_rate, int overtime_rate) {
 
@@ -505,7 +505,7 @@ public class DatabaseManager {
         return 0;
     }
 
-    public Object[][] getAttendance(Date date ){
+    public Object[][] getAttendance(String date ){
         ArrayList<Object[]> Attendance = new ArrayList<Object[]>();
         ResultSet rs;
         int id;

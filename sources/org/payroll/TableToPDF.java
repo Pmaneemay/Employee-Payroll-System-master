@@ -75,7 +75,7 @@ public class TableToPDF {
             int count = table.getRowCount();
             Document document = new Document();
 
-            PdfWriter.getInstance(document, new FileOutputStream("C:\\Downloads\\Attendance_List.PDF"));
+            PdfWriter.getInstance(document, new FileOutputStream("Attendance_List1.PDF"));
             document.open();
             float[] widths = {2, 2, 5, 3, 3 , 3};
             PdfPTable tab = new PdfPTable(widths);

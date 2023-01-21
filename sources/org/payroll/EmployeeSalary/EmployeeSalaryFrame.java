@@ -4,12 +4,15 @@ import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
+import org.payroll.TableToPDF;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class EmployeeSalaryFrame extends JFrame{
@@ -44,6 +47,9 @@ public class EmployeeSalaryFrame extends JFrame{
         JPnlYear.add(yearChooser);
         JPnlMonth.add(monthChooser);
 
+        JLblMonth.setVisible(false);
+        JLblYear.setVisible(false);
+
         Object[][] data = Main.dbManager.getAllMonthlySalary();
         String col[] = {"Employee ID","Employee Full Name","Month","Year","Total Salary","Total Hours Worked"};
 
@@ -57,6 +63,8 @@ public class EmployeeSalaryFrame extends JFrame{
                 Integer mnth = monthChooser.getMonth();
                 mnth = mnth + 1;
                 JLblMonth.setText(mnth.toString());
+                JLblMonth.setVisible(true);
+                JLblYear.setVisible(true);
 
                 Object[][] Ndata = Main.dbManager.getSalaryByMonthAndYear(mnth, yr);
                 JTblReport.setModel(new DefaultTableModel(Ndata,col));
@@ -69,6 +77,23 @@ public class EmployeeSalaryFrame extends JFrame{
                 setVisible(false);
                 (new DashboardFrame()).setVisible(true);
                 dispose();
+            }
+        });
+
+        JBtnDownload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JLblMonth.isVisible() && JLblYear.isVisible()){
+                    Integer yr = yearChooser.getYear();
+                    JLblYear.setText(yr.toString());
+                    Integer mnth = monthChooser.getMonth();
+                    mnth = mnth + 1;
+                    Object[][] Ndata = Main.dbManager.getSalaryByMonthAndYear(mnth, yr);
+                    new TableToPDF().SalaryPDF(Ndata);
+                }
+                else {
+                    new TableToPDF().SalaryPDF(data);
+                }
             }
         });
     }

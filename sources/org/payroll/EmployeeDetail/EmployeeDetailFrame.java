@@ -2,6 +2,7 @@ package org.payroll.EmployeeDetail;
 
 import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
+import org.payroll.TableToPDF;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -52,6 +53,12 @@ public class EmployeeDetailFrame extends JFrame{
                 setVisible(false);
                 (new DashboardFrame()).setVisible(true);
                 dispose();
+            }
+        });
+        JBtnDownload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TableToPDF().EmployeePDF(data);
             }
         });
     }

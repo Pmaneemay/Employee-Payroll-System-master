@@ -3,6 +3,7 @@ package org.payroll.EmployeeAttendance;
 import com.toedter.calendar.JDateChooser;
 import org.payroll.Main;
 import org.payroll.Manager.DashboardFrame;
+import org.payroll.TableToPDF;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,14 +50,17 @@ public class EmployeeAttendanceFrame extends JFrame{
         dateChooser.setDateFormatString("dd/MM/yyyy");
         JPnlDate.add(dateChooser);
 
+        JLblDateTry.setVisible(false);
+
         JBtnGet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date dat = dateChooser.getDate();
-//                String dat1 = sdf.format(dat);
-//                JLblDateTry.setText(dat1);
-                Object[][] Attendance_data = Main.dbManager.getAttendance(dat);
+                String dat1 = sdf.format(dat);
+                JLblDateTry.setVisible(true);
+                JLblDateTry.setText(dat1);
+                Object[][] Attendance_data = Main.dbManager.getAttendance(dat1);
                 JTblEmpAttend.setModel(new DefaultTableModel(Attendance_data, col));
             }
         });
@@ -67,6 +71,22 @@ public class EmployeeAttendanceFrame extends JFrame{
                 setVisible(false);
                 (new DashboardFrame()).setVisible(true);
                 dispose();
+            }
+        });
+
+        JBtnDownload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JLblDateTry.isVisible()){
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date dat = dateChooser.getDate();
+                    String dat1 = sdf.format(dat);
+                    Object[][] Attendance_data = Main.dbManager.getAttendance(dat1);
+                    new TableToPDF().AttandancePDF(Attendance_data);
+                }
+                else{
+                    new TableToPDF().AttandancePDF(attendance);
+                }
             }
         });
     }
