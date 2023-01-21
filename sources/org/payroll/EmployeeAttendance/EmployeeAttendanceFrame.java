@@ -47,6 +47,7 @@ public class EmployeeAttendanceFrame extends JFrame{
         JTblEmpAttend.setModel(new DefaultTableModel(attendance, col));
 
         dateChooser.setDateFormatString("dd/MM/yyyy");
+
         JPnlDate.add(dateChooser);
 
         JBtnGet.addActionListener(new ActionListener() {
@@ -54,9 +55,9 @@ public class EmployeeAttendanceFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date dat = dateChooser.getDate();
-//                String dat1 = sdf.format(dat);
+                String dat1 = sdf.format(dat);
 //                JLblDateTry.setText(dat1);
-                Object[][] Attendance_data = Main.dbManager.getAttendance(dat);
+                Object[][] Attendance_data = Main.dbManager.getAttendance(dat1);
                 JTblEmpAttend.setModel(new DefaultTableModel(Attendance_data, col));
             }
         });
