@@ -249,15 +249,22 @@ public class DatabaseManager {
     }
 
     public double getTotalHours (String EmID ){
-        double totalHour;
         ResultSet rs;
         try{
              rs = curs.executeQuery(
-                   "SELECT (( strftime('%M',clock_out_time ) + (strftime('%H',clock_out_time ) * 60 ) ) - ( strftime('%M',clock_in_time ) + (strftime('%H',clock_in_time ) * 60 ) )) / 60 AS 'hours' FROM Attendance " +
+                   "SELECT strftime('%H',clock_in_time) AS CIHours, strftime('%M',clock_in_time) AS CIMinutes," +
+                           "strftime('%H',clock_out_time) AS COHours, strftime('%M',clock_out_time) AS COMinutes FROM Attendance " +
                            "WHERE emp_id=\"" + EmID + "\" AND attendance_date = CURRENT_DATE"
             );
-             if (rs.next())
-             { return totalHour = rs.getDouble("hours");}
+             if (rs.next()) {
+                 double CIH = ( rs.getInt("CIHours") * 60 ) ;
+                 double COH = ( rs.getInt("COHours") * 60 ) ;
+                 double CIM = rs.getDouble("CIMinutes");
+                 double COM = rs.getDouble("COMinutes");
+                 double difference = (( COM + COH) - (CIM + CIH ));
+                 double DiffHours = ( difference / 60 );
+                 return DiffHours;
+             }
         }catch (SQLException e){
             System.err.println(e.getMessage());
         }
