@@ -249,15 +249,22 @@ public class DatabaseManager {
     }
 
     public double getTotalHours (String EmID ){
-        double totalHour;
         ResultSet rs;
         try{
              rs = curs.executeQuery(
-                   "SELECT ((strftime('%m',clock_out_time)-strftime('%m',clock_in_time))/60) AS 'hours' FROM Attendance " +
+                   "SELECT strftime('%H',clock_in_time) AS CIHours, strftime('%M',clock_in_time) AS CIMinutes," +
+                           "strftime('%H',clock_out_time) AS COHours, strftime('%M',clock_out_time) AS COMinutes FROM Attendance " +
                            "WHERE emp_id=\"" + EmID + "\" AND attendance_date = CURRENT_DATE"
             );
-             if (rs.next())
-             { return totalHour = rs.getDouble("hours");}
+             if (rs.next()) {
+                 double CIH = ( rs.getInt("CIHours") * 60 ) ;
+                 double COH = ( rs.getInt("COHours") * 60 ) ;
+                 double CIM = rs.getDouble("CIMinutes");
+                 double COM = rs.getDouble("COMinutes");
+                 double difference = (( COM + COH) - (CIM + CIH ));
+                 double DiffHours = ( difference / 60 );
+                 return DiffHours;
+             }
         }catch (SQLException e){
             System.err.println(e.getMessage());
         }
@@ -505,7 +512,7 @@ public class DatabaseManager {
         return 0;
     }
 
-    public Object[][] getAttendance(Date date ){
+    public Object[][] getAttendance(String date ){
         ArrayList<Object[]> Attendance = new ArrayList<Object[]>();
         ResultSet rs;
         int id;
@@ -515,20 +522,26 @@ public class DatabaseManager {
 
         try{
             rs = curs.executeQuery("SELECT clock_in_id,emp_id,strftime('%H : %M : %S',clock_in_time) AS clockIn," +
-                    "strftime('%H : %M : %S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance WHERE attendance_date = \"" + date + "\"");
+                    "strftime('%H : %M : %S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates " +
+                    "FROM Attendance WHERE clock_out_time IS NOT NULL");
 
-            while(rs.next()){
-                        id = rs.getInt("clock_in_id");
-                        empID = rs.getString("emp_id");
-                        CIT = rs.getString("clockIn");
-                        COT = rs.getString("clockOut");
-                        dt = rs.getString("dates");
-                        emPName = getEmployeeName(empID);
+            while(rs.next()) {
+                id = rs.getInt("clock_in_id");
+                empID = rs.getString("emp_id");
+                CIT = rs.getString("clockIn");
+                COT = rs.getString("clockOut");
+                dt = rs.getString("dates");
+                emPName = getEmployeeName(empID);
 
-                Object [] temp = {id, empID, emPName, dt, CIT, COT};
+                Object[] temp = {id, empID, emPName, dt, CIT, COT};
 
-                Attendance.add(temp);
+                String d1 = DateFormatter(dt);
+                String d2 = DateFormatter(date);
+
+                if( d1 == d2 ){
+                    Attendance.add(temp);}
             }
+
         }catch(SQLException e){
             System.err.println(e.getMessage());
         }
@@ -547,7 +560,8 @@ public class DatabaseManager {
 
         try{
             rs = curs.executeQuery("SELECT clock_in_id,emp_id,strftime('%H:%M:%S',clock_in_time) AS clockIn," +
-                    "strftime('%H:%M:%S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance WHERE clock_out_time IS NOT NULL ");
+                    "strftime('%H:%M:%S',clock_out_time) AS clockOut,strftime('%Y : %m : %d',attendance_date) AS dates FROM Attendance" +
+                    " WHERE clock_out_time IS NOT NULL ");
 
             while(rs.next()){
                 id = rs.getInt("clock_in_id");
@@ -557,7 +571,6 @@ public class DatabaseManager {
                 dt = rs.getString("dates");
 
                 emPName = getEmployeeName(empID);
-
 
                 Object[] temp = {id, empID, emPName, dt, CIT, COT};
 
@@ -652,6 +665,22 @@ public class DatabaseManager {
         return Salary.toArray(new Object[Salary.size()][]);
 
     }
+
+    public String DateFormatter(String Original_Date ){
+
+        try{
+            String OldString = Original_Date;
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd").parse(OldString);
+            String newstring = new SimpleDateFormat("yyyy-MM-dd").format(newDate);
+            return newstring;
+        }catch (ParseException exception){
+            System.err.println(exception.getMessage());
+        }
+
+        return " ";
+    }
+
+
 
 
 }
