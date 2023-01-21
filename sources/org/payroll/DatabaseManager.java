@@ -621,8 +621,8 @@ public class DatabaseManager {
                     (
                             "SELECT  emp_id, emp_name, SUM(salary_per_day) AS tot_salary ,SUM(total_time) AS tot_time , strftime('%Y',date_salary) AS sal_year, " +
                                     "strftime('%m',date_salary) AS sal_month  FROM emp_salary " +
-                                    "WHERE ( ( sal_month = " + Integer.toString(month) + ")" + "AND " + "(sal_year = " + Integer.toString(year) + "))" +
-                                    "GROUP BY ( emp_id , sal_year ,sal_month ) "
+                                    "GROUP BY  emp_id , sal_year ,sal_month"
+
                     );
 
             while( rs.next()) {
@@ -637,7 +637,13 @@ public class DatabaseManager {
 
                 };
 
-                Salary.add(temp);
+                m =  rs.getInt("sal_month");
+                y = rs.getInt("sal_year");
+
+                if ( ( m == month) & (y == year) ){
+                    Salary.add(temp);
+                }
+
             }
         }catch (SQLException e){
             System.err.println(e.getMessage());
