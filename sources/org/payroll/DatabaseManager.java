@@ -534,7 +534,7 @@ public class DatabaseManager {
                 emPName = getEmployeeName(empID);
                 System.out.println(dt);
                 System.out.println(date);
-                if ( dt == date ){
+                if ( dt.equals(date) ){
                     Object[] temp = {id, empID, emPName, dt, CIT, COT};
                     Attendance.add(temp);
                 }
